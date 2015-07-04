@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="author" content="CurrencyTrade Demo Application" />
+  <title>CurrencyTrade</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- attach CSS styles -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+  <!--  BODY PAGE CONTENT -->
+  
+  <!-- navigation panel -->
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-main">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">CurrencyTrade</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbar-collapse-main">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#webservice">Web Service</a></li>
+          <li><a href="#graphs-header">Graphs</a></li>
+          <li><a href="#lists-header">Lists</a></li>
+          <li style="display: none;"><a href="#map-header">Map-Hidden</a></li>
+          <li><a style="cursor: pointer; cursor: hand" id="map-nav">Map</a></li>
+		  <li><a href="/api/index.html">Api</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <!-- /navigation panel -->
+
+  <!-- first section - Home -->
+  <div id="home" class="home">
+    <div class="text-vcenter">
+     <h1>CurrencyTrade</h1>
+     <br />
+     <a href="#about"><span style="color:white;"><i class="glyphicon glyphicon glyphicon-arrow-down"> </i><span></a>
+   </div>
+ </div>
+ <!-- /first section -->
+
+ <!-- second section - About -->
+ <div id="about" class="pad-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>CurrencyTrade is a demo application</h2>
+        <p class="lead">The application is intended to demonstrate the use of various technologies, specifically <a href="http://www.scala-lang.org/">Scala</a>, <a href="http://spray.io/">spray.io</a> with <a href="https://github.com/wandoulabs/spray-websocket">websockets</a> and <a href="https://www.mongodb.org/">mongodb</a>, in order to expose web services and provide real-time data updates to clients</p>
+        <p>To learn more about CurrencyTrade, check out the project over at GitHub</p>
+        <p>If you don't care about the code and just want to see what the app can do, it is recommended that you open CurrencyTrade in an additional browser. Once you have two browsers open, you can use the <i>Random trade</i> or <i>Bulk trades</i> button in one browser to generate trades and then in the second browser you will be able to see the dynamic updates in the Graphs, Lists and Web Service sections</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /second section -->
+
+<!-- third section - Features -->
+<div id="features" class="pad-section">
+  <div class="container">
+    <h2 class="text-center">Features</h2> <hr />
+    <div class="row text-center">
+      <div class="col-sm-3 col-xs-6">
+        <i class="glyphicon glyphicon-cloud"> </i>
+        <h4>Web Service</h4>
+        <p>A sample trading web service is provided using <a href="http://spray.io/">spray.io</a>, making it fast, lightweight, fully asynchronous and capable of handling thousands of concurrent connections.</p>
+      </div>
+      <div class="col-sm-3 col-xs-6">
+        <i class="glyphicon glyphicon-stats"> </i>
+        <h4>Graphs</h4>
+        <p>Rendered in the browser using the <a href="http://www.flotcharts.org/">Flot</a> javascript library, these graphs are updated in real-time using the latest trade data.</p>
+      </div>
+      <div class="col-sm-3 col-xs-6">
+        <i class="glyphicon glyphicon-list-alt"> </i>
+        <h4>Lists</h4>
+        <p>Updated in real-time using the latest trade data, these lists are simple html tables displaying various types of application information.</p>
+      </div>
+      <div class="col-sm-3 col-xs-6">
+        <i class="glyphicon glyphicon-globe"> </i>
+        <h4>Map</h4>
+        <p>Utilizing the <a href="https://developers.google.com/maps/">Google Maps API</a>, country data is displayed for each location from which a trade has been made.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /third section -->
+
+<!-- alert panel - displayed when Web Socket problems are encountered -->
+<div class="alert alert-danger alert-block fade in hide">
+  <a class="close" data-dismiss="alert" href="#">×</a>
+  <h4 class="alert-heading"><strong> Oh snap! </strong> You got an error!</h4>
+  <p style="float:right"><a class='btn btn-xs btn-danger' href='/'>Reload</a></p>
+  <p>The server seems to be down :(</p>
+</div>
+<!-- /alert panel-->
+
+<!-- fourth section - Web Service -->
+<div id="webservice" class="pad-section">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="btn-group" role="group" aria-label="...">
+          <button type="button" role="group" class="btn btn-primary" id="random-post-btn">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Random trade
+          </button>
+          <button type="button" role="group" class="btn btn-success" id="bulk-post-btn">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Bulk trades
+          </button>
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <h1>Get Started <small>Place some trades</small></h1>
+      </div> 
+    </div>
+
+    <br/>
+
+    <div class="row" id="trade-info-panel">
+      <div class="col-sm-4">
+        <div id="post-data" class="well" style="height: 350px;"></div>
+      </div>
+      <div class="col-sm-8">
+        <div id="latest-trades" class="well" style="overflow-y: scroll; height: 350px;">
+          <p>Latest Trades</p>
+          <table id="latest-trades-table" class="table table-striped table-condensed">
+            <tr><th>From</th><th>Sold</th><th>To</th><th>Bought</th><th>Rate</th><th>Time</th><th>Country</th></tr>
+            <tr id="latest-trade-data-row"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- /fourth section -->
+
+<!-- fifth section - Graphs header -->
+<div id="graphs-header" class="pad-section section-separator">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h2>Dynamic Graphs</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /fifth section -->
+
+<!-- sixth section - Graphs -->
+<div id="graphs" class="pad-section">
+  <div class="minimal-container">
+
+    <div class="row">
+      <div class="col-sm-8">
+        <!-- <h3>Most popular Buy-Sell currency pairings</h3> -->
+        <div id="currency-pair-chart" style="width: 100%; height: 500px;"></div>
+      </div>
+      <div class="col-sm-4">
+        <!-- <h3>Most popular Buy-Sell currency pairings</h3> -->
+        <div id="country-volume-chart" style="width: 100%; height: 500px;"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- /sixth section -->
+
+<!-- seventh section Lists header-->
+<div id="lists-header" class="pad-section section-separator">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h2>Dynamic Lists</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /seventh section -->
+
+<!-- eighth section - Lists -->
+<div id="lists" class="pad-section">
+  <div class="minimal-container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Sold volume</h2>
+          </div>
+          <div id="sell-volume"></div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Bought volume</h2>
+          </div>
+          <div id="buy-volume"></div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Sold value in USD</h2>
+          </div>
+          <div id="sell-value"></div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Bought value in USD</h2>
+          </div>
+          <div id="buy-value"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /eighth section -->
+
+<!-- ninth section Map header -->
+<div id="map-header" class="pad-section section-separator">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h3>Map Integration</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /ninth section -->
+
+<!-- tenth section - Map -->
+<div id="map-canvas" style="width: 100%; height: 650px;"></div>
+<!-- /tenth section -->
+
+<!-- footer -->
+<footer>
+  <hr />
+  <div class="container">
+    <span><a href=""><img src="/images/github.png" /></a>&nbsp;&nbsp;<a href=""><img src="/images/linkedin.png" /></a>&nbsp;&nbsp;<a href=""><img src="/images/blog.png" /></a></a>&nbsp;&nbsp;<a href=""><img src="/images/twitter.png" /></a></span>
+    <p class="text-right">Copyright &copy; Damian McDonald 2015</p>
+  </div>
+</footer>
+<!-- /footer -->
+
+<!-- attach JavaScripts -->
+
+<!-- 3rd party vendor JavaScripts -->
+
+<!-- jQuery and Bootstrap's JavaScript plugins -->
+<script language="javascript" type="text/javascript" src="scripts/vendor/jquery-1.11.1.min.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/vendor/bootstrap.min.js"></script>
+<!-- jQuery number plugin to format numbers -->
+<script language="javascript" type="text/javascript" src="scripts/vendor/jquery.number.min.js"></script>
+<!-- Flot, JavaScript plotting library for jQuery -->
+<script language="javascript" type="text/javascript" src="scripts/vendor/jquery.flot.min.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/vendor/jquery.flot.pie.min.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/vendor/jquery.flot.categories.min.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/vendor/jquery.flot.resize.min.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/vendor/jquery.flot.axislabels.js"></script>
+<!-- DOM 3 XPath implementation for JavaScript object data -->
+<script language="javascript" type="text/javascript" src="scripts/vendor/jsel.js"></script>
+<!-- Clear console logging for every browser -->
+<script language="javascript" type="text/javascript" src="scripts/vendor/console-log.min.js"></script>
+<!-- Module for displaying "Waiting for..." dialog using Bootstrap -->
+<script language="javascript" type="text/javascript" src="scripts/vendor/waiting.js"></script>
+
+<!-- End 3rd party vendor JavaScripts -->
+
+<!-- CurrencyTrade specific JavaScripts -->
+
+<!-- Common function and constant definitions -->
+
+<!-- Api functions and constants -->
+<script language="javascript" type="text/javascript" src="scripts/api/api.js"></script>
+<!-- Countries, continents and coordinates data -->
+<script language="javascript" type="text/javascript" src="scripts/data/countriesdata.js"></script>
+<!-- Google map functions -->
+<script language="javascript" type="text/javascript" src="scripts/map/countriesmap.js"></script>
+<!-- UI utility functions -->
+<script language="javascript" type="text/javascript" src="scripts/ui/uiutils.js"></script>
+<!-- UI progress bar functions -->
+<script language="javascript" type="text/javascript" src="scripts/ui/progressbar.js"></script>
+<!-- Web worker functions -->
+<script language="javascript" type="text/javascript" src="scripts/workers/webworkers.js"></script>
+<!-- Web socket specific functions -->
+<script language="javascript" type="text/javascript" src="scripts/sockets/websockets.js"></script>
+<!-- Long polling specific functions -->
+<script language="javascript" type="text/javascript" src="scripts/longpolling/longpolling.js"></script>
+<!-- Page load and initilaization functions -->
+<script language="javascript" type="text/javascript" src="scripts/init.js"></script>
+
+<!-- End CurrencyTrade specific JavaScripts -->
+
+<!-- Google map api functions including API key -->
+<script language="javascript" type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&callback=CountriesMap.initializeMap&key=AIzaSyAcNeycyt-4f-Ll3YJS95U8fKBoE-05iTA"></script>
+
+</body>
+</html>

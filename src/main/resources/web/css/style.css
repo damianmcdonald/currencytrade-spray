@@ -1,0 +1,151 @@
+/* general styles */
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+/* padded section */
+.pad-section {
+  padding: 50px 0;
+}
+.pad-section img {
+  width: 100%;
+}
+
+/* vertical-centered text */
+.text-vcenter {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+.text-vcenter h1 {
+  font-size: 4.5em;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+
+.waitingdialog-websockets {
+  color: #306d9f
+}
+
+.section-separator {
+  background-color: #306d9f;
+  color: #ffffff;
+}
+
+.minimal-container {
+  margin-left: 35px;
+  margin-right: 35px;
+}
+
+/* additional sections */
+#home {
+  background: url(../images/home.jpg) no-repeat center center fixed; 
+  display: table;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #fff;
+}
+
+#home .glyphicon {
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 60px;
+  height: 140px;
+  line-height: 140px;
+  text-align: center;
+  vertical-align: middle;
+  width: 140px;
+}
+
+#about {
+  color: #306d9f;
+  background-color: #ffffff;
+}
+
+#features {
+  background-color: #306d9f;
+  color: #ffffff;
+}
+
+#features a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+
+#features .glyphicon {
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 60px;
+  height: 140px;
+  line-height: 140px;
+  text-align: center;
+  vertical-align: middle;
+  width: 140px;
+}
+
+#webservice {
+  color: #306d9f;
+  background-color: #ffffff;
+}
+
+#trade-info-panel {
+  color: #306d9f;
+}
+
+/*
+#graphs {
+  background-color: #306d9f;
+  color: #ffffff;
+}
+*/
+
+#lists {
+  background: url(../images/graphs.jpg) no-repeat center center fixed; 
+  display: table;
+  height: 500px;
+  position: relative;
+  width: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #306d9f;
+}
+
+#lists .panel {
+  opacity: 1;
+}
+
+#lists td {
+  padding: 10px;
+}
+
+#map {
+  background-color: #306d9f;
+  color: #ffffff;
+}
+
+#google_map {
+  height: 650px;
+}
+
+footer {
+  padding: 20px 0;
+}
+footer .glyphicon {
+  color: #333333;
+  font-size: 60px;
+}
+footer .glyphicon:hover {
+  color: #306d9f;
+}
