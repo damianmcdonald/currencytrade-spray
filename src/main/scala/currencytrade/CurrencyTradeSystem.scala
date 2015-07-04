@@ -19,27 +19,33 @@ package currencytrade
 import java.math.RoundingMode
 import currencytrade.api.{ MainActors, CurrencyTradeApi }
 import akka.actor.{ ActorSystem, PoisonPill }
-import akka.io.{ IO, Tcp }
-import java.net.InetSocketAddress
+import akka.io.IO
 import spray.can.Http
 import spray.can.server.UHttp
-import com.mongodb.casbah.{ MongoClient, MongoCollection }
+import com.mongodb.casbah.MongoClient
 import com.mongodb.casbah.MongoClientURI
+
+import scala.util.Properties
 
 /**
  * Starts the CurrencyTrade application by spinning up the
  * currencytrade-system [[akka.actor.ActorSystem]] and binding
  * to the UHttp and Http protocol for http and web socket requests.
+ *
+ * This object is based on the SprayEasterEggs project.
+ * Please view this project for more details.
+ *
+ * @see https://github.com/cuali/SprayEasterEggs
  */
 object CurrencyTradeSystem extends App with MainActors with CurrencyTradeApi {
   implicit lazy val system = ActorSystem("currencytrade-system")
   sys.addShutdownHook({ system.shutdown })
   IO(UHttp) ! Http.Bind(wsService, Configuration.host, Configuration.portWs)
-  // Since the UTttp extension extends from Http extension,
+  // Since the UHttp extension extends from Http extension,
   // it starts an actor whose name will later collide with the Http extension.
   system.actorSelection("/user/IO-HTTP") ! PoisonPill
   // We could use IO(UHttp) here instead of killing the "/user/IO-HTTP" actor
-  IO(UHttp) ! Http.Bind(rootService, Configuration.host, Configuration.portHttp)
+  IO(Http) ! Http.Bind(rootService, Configuration.host, Configuration.portHttp)
 }
 
 /**
@@ -48,6 +54,7 @@ object CurrencyTradeSystem extends App with MainActors with CurrencyTradeApi {
  */
 object Configuration {
   import com.typesafe.config.ConfigFactory
+  import scala.util.Properties
 
   // load configuration settings from application.conf
   // in the default location
@@ -62,9 +69,11 @@ object Configuration {
 
   /**
    * The port number that http requests will be served on.
-   * Obtained using the currencytrade.ports.http from application.conf.
+   * As this app is intended to be deployed to Heroku, we first try to
+   * use the PORT variable defined in Heroku. If that variable is not available
+   * then the port number is obtained using the currencytrade.ports.http from application.conf.
    */
-  lazy val portHttp = config.getInt("currencytrade.ports.http")
+  lazy val portHttp = Properties.envOrElse("PORT", config.getString("currencytrade.ports.http")).toInt
 
   /**
    * The port number that web socket requests will be served on.
@@ -154,7 +163,8 @@ object MongoFactory {
    *
    * The format of the MONGOLAB_URI is: mongodb://dbuser:dbpass@host:port/dbname
    */
-  val collection = sys.env.get("MONGOLAB_URI") match {
+  val dbUri = Properties.envOrNone("MONGOLAB_URI")
+  val collection = dbUri match {
     case Some(uri) => {
       val clientUri = MongoClientURI(uri)
       val connection = MongoClient(MongoClientURI(uri))

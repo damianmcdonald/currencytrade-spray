@@ -7,3 +7,4 @@ src/main/scala-2.11/
 src/test/java/
 src/test/scala-2.11/
 target/
+Procfile
