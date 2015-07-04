@@ -19,6 +19,8 @@ import de.heikoseeberger.sbtheader.license.Apache2_0
 
 lazy val currencytrade = project.in(file(".")).enablePlugins(AutomateHeaderPlugin)
 
+enablePlugins(JavaAppPackaging)
+
 name := "currencytrade-spray"
 
 version       := "1.0.0"
