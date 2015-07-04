@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-   "description": "CurrencyTrade is a demo application. <br \/> <br \/> It is intended to demonstrate the use of various technologies in order to expose web services and provide real-time data updates to clients.",
+   "description": "CurrencyTrade-Spray is a demo application. <br \/> <br \/> It is intended to demonstrate the use of various technologies in order to expose web services and provide real-time data updates to clients.",
     "version": "1.0.0",
-    "title": "CurrencyTrade",
+    "title": "CurrencyTrade-Spay",
     "termsOfService": "http://swagger.io/terms/",
     "contact": {
-      "url": "http://heroku.currencytrade",
+      "url": "https://github.com/damianmcdonald/currencytrade-spray",
       "name": "Damian McDonald"
     },
     "license": {

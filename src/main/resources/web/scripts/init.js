@@ -40,6 +40,9 @@ $(document).ready(function() {
         }
     });
 
+    // Heroku can not support multiple ports. As such, we can not service web socket requests
+    // as they listen on an independent port number.
+    // Therefore, we force long polling mode in the Heroku enviornment.
     // determine if web sockets and web workers are supported by the browser
     var browserSupported = function() {
         if (('function' !== typeof(WebSocket) && 'function' !== typeof(MozWebSocket))
@@ -48,7 +51,8 @@ $(document).ready(function() {
             log("Websockets and web workers are not supported!");
             return false;
         }
-        return true;
+        // return false regardless of support for web sockets - Heroku env only
+        return false;
     };
 
     // show the loading dialog modal

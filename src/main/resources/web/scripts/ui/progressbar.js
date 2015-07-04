@@ -85,7 +85,7 @@ var ProgressBar = new function() {
         // execute when we have reached the expected number of completions
         if(CURRENT_COMPLETIONS == EXPECTED_COMPLETIONS) {
             // delay the close of the waitingDialog modal to improve the UX
-            setTimeout( function(){ waitingDialog.hide(); }, 1000 );
+            setTimeout( function(){ waitingDialog.hide(); }, 5000 );
         }
     };
 

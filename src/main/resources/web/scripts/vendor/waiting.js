@@ -42,12 +42,19 @@ var waitingDialog = (function ($) {
 			if (typeof message === 'undefined') {
 				message = 'Loading';
 			}
-			if (browserSupported) {
+			if (!browserSupported) {
+
+				// Heroku deployment specific information message
+				var html =""
+				html += "<p>Limitations in the Heroku environment mean that this demo of currencytrade will be provided only in long polling mode. This will result in a slightly degraded user experience.</p>";
+				html += "<p>With that said, this deployment will still provide you with a good feel for how currencytrade is intended to work.</p>";
+				html += "<p>And remember that you can always checkout the currencytrade project from GitHub and run it in your own environment without restrictions.</p>";
+
 				$dialog.find('.modal-info').addClass("alert-info");
 				$dialog.find('.modal-header').css("color", "#306d9f");
 				$dialog.find('.modal-info').css("color", "#306d9f");
 				$dialog.find('.progress').css("color", "#306d9f");
-				$dialog.find('.modal-info').html("<p><strong>Great news!</strong> Your browser suppots websockets which will provide you with the best user experience possible.</p>");
+				$dialog.find('.modal-info').html("<p><strong>FYI</strong> " + html);
 			} else {
 				$dialog.find('.modal-info').addClass("alert-warning");
 				$dialog.find('.modal-info').html("<p><strong>Oh dear!</strong> Your browser does not suppot websockets. We will switch you to long polling which is a slighty degraded user experience.</p><p>We recommend upgading to a browser that support web sockets.</p>");

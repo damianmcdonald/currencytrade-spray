@@ -40,10 +40,10 @@ import scala.util.Properties
 object CurrencyTradeSystem extends App with MainActors with CurrencyTradeApi {
   implicit lazy val system = ActorSystem("currencytrade-system")
   sys.addShutdownHook({ system.shutdown })
-  IO(UHttp) ! Http.Bind(wsService, Configuration.host, Configuration.portWs)
+  //IO(UHttp) ! Http.Bind(wsService, Configuration.host, Configuration.portWs)
   // Since the UHttp extension extends from Http extension,
   // it starts an actor whose name will later collide with the Http extension.
-  system.actorSelection("/user/IO-HTTP") ! PoisonPill
+  //system.actorSelection("/user/IO-HTTP") ! PoisonPill
   // We could use IO(UHttp) here instead of killing the "/user/IO-HTTP" actor
   IO(Http) ! Http.Bind(rootService, Configuration.host, Configuration.portHttp)
 }
