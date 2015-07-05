@@ -3,8 +3,7 @@
   "info": {
    "description": "CurrencyTrade-Spray is a demo application. <br \/> <br \/> It is intended to demonstrate the use of various technologies in order to expose web services and provide real-time data updates to clients.",
     "version": "1.0.0",
-    "title": "CurrencyTrade-Spay",
-    "termsOfService": "http://swagger.io/terms/",
+    "title": "CurrencyTrade-Spray",
     "contact": {
       "url": "https://github.com/damianmcdonald/currencytrade-spray",
       "name": "Damian McDonald"
@@ -14,19 +13,16 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "localhost:8085",
+  "host": "currencytrade-spray.herokuapp.com",
   "basePath": "/v1",
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "tags": [
     {
       "name": "currencytrade-api",
-      "description": "CurrencyTrade API - place and retrieve trade data",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "http://swagger.io"
-      }
+      "description": "CurrencyTrade API - place and retrieve trade data"
     }
   ],
   "paths": {
