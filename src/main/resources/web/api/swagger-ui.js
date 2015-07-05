@@ -31070,7 +31070,8 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
         this.model.validatorUrl = 'https://online.swagger.io/validator';
       }
       else {
-        this.model.validatorUrl = 'http://online.swagger.io/validator';
+        // Force Heroku to always use https
+        this.model.validatorUrl = 'https://online.swagger.io/validator';
       }
     }
   },
