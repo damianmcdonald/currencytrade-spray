@@ -1,0 +1,3 @@
+= Currencytrade-Spray
+
+Currencytrade-Spray is a demo application that shows the use of various technologies, specifically http://www.scala-lang.org/[Scala], http://spray.io[spray.io] with https://github.com/wandoulabs/spray-websocket[websockets] and https://www.mongodb.org/[mongodb], in order to expose web services and provide real-time data updates to clients.
