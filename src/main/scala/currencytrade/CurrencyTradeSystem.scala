@@ -168,7 +168,7 @@ object MongoFactory {
     case Some(uri) => {
       val clientUri = MongoClientURI(uri)
       val connection = MongoClient(MongoClientURI(uri))
-      connection(clientUri.database.getOrElse("currencytrade"))(Configuration.dbCollection)
+      connection(clientUri.database.getOrElse(Configuration.dbDatabase))(clientUri.collection.getOrElse(Configuration.dbCollection))
     }
     case None => {
       val connection = MongoClient(Configuration.dbHost, Configuration.dbPort)
