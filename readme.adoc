@@ -55,6 +55,8 @@ Some additional sbt commands:
  
 Please note that the test suite contains both unit and integration tests. The test suite will not run successfully unless there is an accessible https://www.mongodb.org/[MongoDB] instance that contains at least 10 trade documents.
 
+As an aside, it is possible to use an embedded instance of MongoDB during testing which removes the constraint of requiring an active MongoDB instance. See the following https://gist.github.com/damianmcdonald/5fb23808314fec6b1589[Gist] which demonstrates the use of https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo[Embedded MongoDB] with the https://github.com/SimplyScala/scalatest-embedmongo[ScalaTest EmbeddedMongoDB] trait.
+
 == Performance
 
 Given that http://spray.io[spray.io] is asynchronous, actor-based, fast and lightweight it is capable of handling many concurrent connections and requests. http://spray.io[spray.io] is the framework upon which `currencytrade-spray` is built.
