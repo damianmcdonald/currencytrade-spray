@@ -1,0 +1,75 @@
+= Currencytrade-Spray
+
+Currencytrade-Spray is a demo application that displays the use of various technologies, specifically http://www.scala-lang.org/[Scala], http://spray.io[spray.io] with https://github.com/wandoulabs/spray-websocket[websockets] and https://www.mongodb.org/[mongodb], in order to expose web services and provide real-time data updates to clients.
+
+You can a view a https://currencytrade-spray.herokuapp.com[demo] of the application over at Heroku but ... (there is always a but!), due to limitations on the Heroku platform, `currencytrade-spray` is only offered in long polling fallback mode which results in a degraded user experience. The reason for this is that `currencytrade-spray` requires two port bindings; one to handle regular http traffic and the other to handle web socket traffic. Heroku's free pricing plan only allows an application to bind to a single port and as such web sockets are not active on the Heroku deployment. 
+
+However fear not! As this in an open source project the good news is that you can checkout and build the source code and run the app in your own environment without restrictions.
+
+`currencytrade-spray` will provide a good reference point for those interested in:
+
+* a web application written in http://www.scala-lang.org/[Scala]
+* high-performance HTTP for Akka Actors via http://spray.io[spray.io]
+* MongoDB access from Scala via the https://github.com/mongodb/casbah[casbah] driver
+* real-time data updates to clients via https://github.com/wandoulabs/spray-websocket[websockets]
+* dynamic graphing updates with http://www.flotcharts.org/[flotcharts]
+* google map dynamic marker creation and map bounds repositioning  
+
+== Build
+
+`currencytrade-spray` is a Scala application built using http://www.scala-sbt.org/[sbt].
+
+The application was built using the following toolchain:
+
+* http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java Oracle JDK 1.8]
+* http://www.scala-lang.org/download/all.html[Scala 2.11.6]
+* http://www.scala-sbt.org/download.html[SBT 0.13.8]
+
+The application has also been built against the OpenJDK but is less thoroughly tested so in general your mileage may vary if you attempt to use the application with versions different than the ones specified above.
+
+Build the application with:
+
+ sbt compile
+ 
+== Run
+
+In order to run `currencytrade-spray`, you will need to have access to a https://www.mongodb.org/[MongoDB] instance.
+
+By default, the application looks to connect to a database called `currencytrade`. The database name is configurable via the https://github.com/damianmcdonald/currencytrade-spray/blob/master/src/main/resources/application.conf[application.conf] file. The important thing to realise is that before running `currencytrade-spray` you will need to ensure that `MongoDB` is running, accessible and contains a database that matches the name referenced in `application.conf`.
+
+Run the application with:
+
+ sbt re-start
+ 
+The running application can be accessed at http://localhost:8085
+
+As with the database settings, the port bindings for `currencytrade-spray` can be edited in https://github.com/damianmcdonald/currencytrade-spray/blob/master/src/main/resources/application.conf[application.conf].
+
+Some additional sbt commands:
+
+ sbt re-start               // starts the application
+ sbt re-stop                // stops the application
+ sbt test                   // runs the unit and integration tests
+ sbt scalastyle             // runs checkstyle to validate the Scala code
+ sbt scalariformFormat      // formats the source code
+ 
+Please note that the test suite contains both unit and integration tests. The test suite will not run successfully unless there is an accessible https://www.mongodb.org/[MongoDB] instance that contains at least 10 trade documents.
+
+== Performance
+
+Given that http://spray.io[spray.io] is asynchronous, actor-based, fast and lightweight it is capable of handling many concurrent connections and requests. http://spray.io[spray.io] is the framework upon which `currencytrade-spray` is built.
+
+https://github.com/damianmcdonald/json-randomizer[jaon-randomizer] was used to load test `currencytrade-spray`. 
+
+20,000 unique POST requests were made to the `/v1/trade` web service. All requests were handled successfully and in a timely manner. Pre and post checks of the MongoDB datastore confirm that the expected number of database records were created as a result of the API requests.
+
+== Credits
+
+* https://github.com/cuali/SprayEasterEggs[SprayEasterEggs] - Spray and Websocket interfaces to actors - Activator Template
+* https://github.com/sbt/sbt-header/tree/master/src/main/scala/de/heikoseeberger/sbtheader[sbtheader] - an sbt plugin for creating file headers, e.g. copyright headers
+ 
+
+
+
+
+

@@ -92,9 +92,6 @@ trait StaticRoute extends Directives {
       pathPrefix("fonts") {
         getFromResourceDirectory("web/fonts/")
       } ~
-      pathPrefix("api") {
-        getFromResourceDirectory("web/api/")
-      } ~
       pathEndOrSingleSlash {
         getFromResource("web/index.html")
       } ~ complete(StatusCodes.NotFound)
