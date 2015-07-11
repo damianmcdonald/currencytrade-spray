@@ -61,7 +61,7 @@ Given that http://spray.io[spray.io] is asynchronous, actor-based, fast and ligh
 
 https://github.com/damianmcdonald/json-randomizer[jaon-randomizer] was used to load test `currencytrade-spray`. 
 
-20,000 unique POST requests were made to the `/v1/trade` web service. All requests were handled successfully and in a timely manner. Pre and post checks of the MongoDB datastore confirm that the expected number of database records were created as a result of the API requests.
+100,000 unique POST requests were made to the `/v1/trade` web service. All requests were handled successfully and in a timely manner. Pre and post checks of the MongoDB datastore confirm that the expected number of database records were created as a result of the API requests.
 
 == Credits
 
