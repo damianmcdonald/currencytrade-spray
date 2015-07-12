@@ -55,7 +55,7 @@ Some additional sbt commands:
  
 Please note that the test suite contains both unit and integration tests. The test suite will not run successfully unless there is an accessible https://www.mongodb.org/[MongoDB] instance that contains at least 10 trade documents.
 
-As an aside, it is possible to use an embedded instance of MongoDB during testing which removes the constraint of requiring an external MongoDB instance. See the following Gists; https://gist.github.com/damianmcdonald/2724facc813959ce1065[EmbeddedMongoDBImmutableTest] and https://gist.github.com/damianmcdonald/5fb23808314fec6b1589[EmbeddedMongoDBMutableTest], which demonstrate the use of https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo[Embedded MongoDB] with the ScalaTest https://github.com/SimplyScala/scalatest-embedmongo[EmbeddedMongoDB] trait.
+As an aside, it is possible to use an embedded instance of MongoDB during testing which removes the constraint of requiring an external MongoDB instance. See the following Gists; https://gist.github.com/damianmcdonald/2724facc813959ce1065[EmbeddedMongoDBImmutableTest] and https://gist.github.com/damianmcdonald/5fb23808314fec6b1589[EmbeddedMongoDBMutableTest].
 
 == Performance
 
