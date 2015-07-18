@@ -45,7 +45,7 @@ object CurrencyTradeSystem extends App with MainActors with CurrencyTradeApi {
   // it starts an actor whose name will later collide with the Http extension.
   system.actorSelection("/user/IO-HTTP") ! PoisonPill
   // We could use IO(UHttp) here instead of killing the "/user/IO-HTTP" actor
-  IO(UHttp) ! Http.Bind(rootService, Configuration.host, Configuration.portHttp)
+  IO(Http) ! Http.Bind(rootService, Configuration.host, Configuration.portHttp)
 }
 
 /**
