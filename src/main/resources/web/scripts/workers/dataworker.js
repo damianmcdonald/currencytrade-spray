@@ -88,7 +88,7 @@ var RespondWith = new function() {
 		var graphData = new Array();
 		// put the currency pair data into a format useable by the flot bar graph
 		for(var i=0; i<data.length; i++) {
-			graphData.push(new Array(data[i].currencyPair, data[i].volume));
+			graphData.push(new Array(data[i].currencyFrom+"-"+data[i].currencyTo, data[i].volume));
 		}
 		return graphData;
 	};

@@ -161,7 +161,7 @@ var LongPolling = new function() {
     			url: Api.URL_COUNTRYCODES,
                 cache: false, // ensure to set this to false otherwise IE will not retrieve the latest data
                 success: function (data) {
-                	UiUtils.updateCountriesInfo(data, false, true);
+                	UiUtils.updateCountriesInfo(data.data, false, false);
                 }, 
                 dataType: "json", 
                 complete: mapUpdates
@@ -170,6 +170,5 @@ var LongPolling = new function() {
     })();
     
 };
-
 
 }

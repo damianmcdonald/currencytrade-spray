@@ -40,7 +40,7 @@ $(document).ready(function() {
         }
     });
 
-    // Heroku can not support multiple ports. As such, we can not service web socket requests
+    // Heroku can not support multiple ports. As such, we can not service web s
     // as they listen on an independent port number.
     // Therefore, we force long polling mode in the Heroku enviornment.
     // determine if web sockets and web workers are supported by the browser
