@@ -276,20 +276,20 @@ class ClientMockService(implicit system: ActorSystem) extends CoreAdditions with
   private val elem = scala.xml.XML.loadString(countryData)
 
   /**
-   * Country data processed into a [[scala.collection.SeqView]] of [[currencytrade.mock.MockCountryData]]
+   * Country data processed into a [[scala.collection.SeqView]] of MockCountryData
    */
   private val countries = (elem \ "Table").view.map(e =>
     MockCountryData((e \ "CountryCode").text.toUpperCase, (e \ "CurrencyCode").text)).filter(_.currencyCode != "").filter(rates.isCurrencySupported(_))
 
   /**
-   * Retrieve a random [[currencytrade.mock.MockCountryData]]
+   * Retrieve a random MockCountryData
    *
    * @param compareCountry the country code to compare. This parameter ensures that the returned
-   * [[currencytrade.mock.MockCountryData]] will not be the same country as the compareCountry.
+   * MockCountryData will not be the same country as the compareCountry.
    * @param compareCurrency the currency code to compare. This parameter ensures that the returned
-   * [[currencytrade.mock.MockCountryData]] will not have the same currency as the compareCurrency.
+   * MockCountryData will not have the same currency as the compareCurrency.
    * @param matchCurrency determines if countires with the same currency should be matched.
-   * @return MockCountryData a randomly selected [[currencytrade.mock.MockCountryData]]
+   * @return MockCountryData a randomly selected MockCountryData
    */
   private def getRandomSource(compareCountry: String, compareCurrency: String, matchCurency: Boolean): MockCountryData = {
     import scala.annotation.tailrec
@@ -341,7 +341,7 @@ class ClientMockService(implicit system: ActorSystem) extends CoreAdditions with
   }
 
   /**
-   * Produces a [[currencytrade.trade.Trade]] that contains randomly generated mock data
+   * Produces a Trade that contains randomly generated mock data
    */
   private def getMockTrade(): Trade = {
     // build the Trade object, using random data
@@ -360,7 +360,7 @@ class ClientMockService(implicit system: ActorSystem) extends CoreAdditions with
   }
 
   /**
-   * POST a randomly generated [[currencytrade.trade.Trade]]
+   * POST a randomly generated Trade
    */
   private def sendRandomPostData = {
     val logRequest: HttpRequest => HttpRequest = { r => log.debug(r.toString); r }
@@ -377,7 +377,7 @@ class ClientMockService(implicit system: ActorSystem) extends CoreAdditions with
   }
 
   /**
-   * POST a series of randomly generated [[currencytrade.trade.Trade]]
+   * POST a series of randomly generated Trade
    */
   private def sendBulkPostData = {
     val logRequest: HttpRequest => HttpRequest = { r => log.debug(r.toString); r }
