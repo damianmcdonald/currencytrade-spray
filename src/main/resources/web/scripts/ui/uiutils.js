@@ -59,8 +59,25 @@ var UiUtils = new function() {
 
     /**
      * Handles the click event for the Random Trade UI button.
-     * Calls the mock trade web service to place a random currrency trade.
+     * Calls the mock trade web service to place a random currency trade.
      *
+	 * API json response
+	 *
+	 * {
+	 * 	"event":"TRADE_PERSISTED",
+	 *  "data":
+	 *		{
+	 *	     "userId":"ap8X8PES",
+	 *		 "currencyFrom":"CNY",
+	 *		 "currencyTo":"KWD",
+	 *		 "amountSell":4469.70,
+	 *		 "amountBuy":1904.54,
+	 *		 "rate":0.4261,
+	 *		 "timePlaced":"16-Jun-12 13:40:18",
+	 *		 "originatingCountry":"UK"
+	 *		}
+	 * }
+	 *
      * @method postRandomTradeData
      * @return {Unit}
      */
@@ -77,6 +94,7 @@ var UiUtils = new function() {
             cache: false,
             dataType: "json"
         }).done(function(data) {
+			var trade = data.data;
             // create dynamic html for insertion into HTML DOM
             var html = "";
             // p tag containg formatted date
@@ -87,14 +105,14 @@ var UiUtils = new function() {
             html += "<table id=\"latest-trades-table\" class=\"table table-striped table-condensed\">";
 
             // open table rows
-            html += "<tr><td>User:</td><td>"+data.userId+"</td></tr>";
-            html += "<tr><td>Currency From:</td><td>"+data.currencyFrom+"</td></tr>";
-            html += "<tr><td>Currency To:</td><td>"+data.currencyTo+"</td></tr>";
-            html += "<tr><td>Amount Sold:</td><td>"+data.amountSell+"</td></tr>";
-            html += "<tr><td>Amount Bought:</td><td>"+data.amountBuy+"</td></tr>";
-            html += "<tr><td>Rate:</td><td>"+data.rate+"</td></tr>";
-            html += "<tr><td>Time Placed:</td><td>"+data.timePlaced+"</td></tr>";
-            html += "<tr><td>Originating Country:</td><td>"+data.originatingCountry+"</td></tr>";
+            html += "<tr><td>User:</td><td>"+trade.userId+"</td></tr>";
+            html += "<tr><td>Currency From:</td><td>"+trade.currencyFrom+"</td></tr>";
+            html += "<tr><td>Currency To:</td><td>"+trade.currencyTo+"</td></tr>";
+            html += "<tr><td>Amount Sold:</td><td>"+trade.amountSell+"</td></tr>";
+            html += "<tr><td>Amount Bought:</td><td>"+trade.amountBuy+"</td></tr>";
+            html += "<tr><td>Rate:</td><td>"+trade.rate+"</td></tr>";
+            html += "<tr><td>Time Placed:</td><td>"+trade.timePlaced+"</td></tr>";
+            html += "<tr><td>Originating Country:</td><td>"+trade.originatingCountry+"</td></tr>";
             // close table rows
 
             // close table
@@ -111,8 +129,32 @@ var UiUtils = new function() {
 
     /**
      * Handles the click event for the Bulk Trades UI button.
-     * Calls the bulk trades web service to place random currrency trades.
+     * Calls the bulk trades web service to place random currency trades.
      *
+	 * API json response
+	 *
+	 * {
+	 *	"event":"LATEST_TRADES", 
+	 *	"data":[
+	 *		{ 
+	 * 		"currencyFrom" : "CNY" , 
+	 *		"currencyTo" : "KWD" , 
+	 *		"amountSell" : 4469.7 , 
+	 *		"amountBuy" : 1904.54 , 
+	 *		"rate" : 0.4261 , 
+	 *		"timePlaced" : 
+	 *			{ 
+	 *			"$date" : "2012-06-16T11:40:18.000Z"
+	 *			}, 
+	 *		"originatingCountry" : "UK" , 
+	 *		"receptionDate" : 
+	 *			{	 
+	 *			"$date" : "2015-07-13T11:40:18.149Z"
+	 *			}
+	 *		}
+	 *	]
+	 * }
+	 *
      * @method postBulkTradesData
      * @return {Unit}
      */
@@ -181,7 +223,7 @@ var UiUtils = new function() {
     /**
      * Updates the UI with the latest trade data relating to currency sales/purchase volumes
      *
-     * The method acepts a TradeVolumeEvent represented in json as shown below:
+     * The method accepts a TradeVolumeEvent represented in json as shown below:
      *
      * var tradeVolumeEvent = {
      *   "event":"CURRENCIES_SOLD_VOLUME" / , "CURRENCIES_BOUGHT_VOLUME"
@@ -230,7 +272,7 @@ var UiUtils = new function() {
     /**
      * Updates the UI with the latest trade data received via long polling
      *
-     * The method acepts a LatestTradesEvent represented in json as shown below:
+     * The method accepts a LatestTradesEvent represented in json as shown below:
      *
      * var latestTradesEvent = {
      *  "event":"LATEST_TRADES",
@@ -278,8 +320,10 @@ var UiUtils = new function() {
         html += "<tr><th>From</th><th>Sold</th><th>To</th><th>Bought</th><th>Rate</th><th>Time</th><th>Country</th></tr>";
         // iterate latest trades
         $.each(sortedArray, function (i, v) {
+			// format the date
+			var jdate =  (v.timePlaced.$date).replace("T"," ").substring(0, (v.timePlaced.$date).length - 5); 
             // create trade table row
-            html += "<tr><td>" + v.currencyFrom + "</td><td>" + v.amountSell + "</td><td>" + v.currencyTo + "</td><td>" + v.amountBuy + "</td><td>" + v.rate + "</td><td>" + v.timePlaced + "</td><td>" + v.originatingCountry + "</td></tr>";
+            html += "<tr><td>" + v.currencyFrom + "</td><td>" + v.amountSell + "</td><td>" + v.currencyTo + "</td><td>" + v.amountBuy + "</td><td>" + v.rate + "</td><td>" + jdate + "</td><td>" + v.originatingCountry + "</td></tr>";
         });
         // close table
         html += "</table>";
@@ -307,17 +351,21 @@ var UiUtils = new function() {
     /**
      * Updates the UI bar graph with the latest currency pairs by sales volume data received
      *
-     * The method acepts a CurrencyPairsEvent represented in json as shown below:
+     * The method accepts a CurrencyPairsEvent represented in json as shown below:
      *
      * var currencyPairsEvent = {
      *  "event":"CURRENCY_PAIRS",
      *  "data":[
-     *      {   "currencyPair":"AUD-USD",
-     *          "volume":10
-     *      },{ "currencyPair":"TRY-USD",
-     *          "volume":15
-     *      },{ "currencyPair":"EUR-USD","volume":20
-     *      }
+     *      {   "volume" : 22 , 
+	 *			"currencyFrom" : "EUR" , 
+	 *			"currencyTo" : "CAD"
+	 *		},{ "volume" : 22 , 
+	 *			"currencyFrom" : "GBP" , 
+	 *			"currencyTo" : "ZAR"
+	 *		},{ "volume" : 17 , 
+	 *			"currencyFrom" : "BRC" , 
+	 *			"currencyTo" : "NZD"
+	 *		}
      *  ]
      * }
      *
@@ -339,7 +387,7 @@ var UiUtils = new function() {
             graphData = new Array();
             // put the currency pair data into a format useable by the flot bar graph
             $.each(data, function (i, v) {
-                graphData.push(new Array(v.currencyPair, v.volume));
+                graphData.push(new Array(v.currencyFrom+"-"+v.currencyTo, v.volume));
             });
         } else {
             graphData = data;
@@ -386,7 +434,7 @@ var UiUtils = new function() {
     /**
      * Updates the UI pie chart with the latest currency sales volume by country data received
      *
-     * The method acepts a CountryVolumeEvent represented in json as shown below:
+     * The method accepts a CountryVolumeEvent represented in json as shown below:
      *
      * var countryVolumeEvent = {
      *   "event":"COUNTRIES_VOLUME",
@@ -462,7 +510,7 @@ var UiUtils = new function() {
     /**
      * Updates the UI with the latest trade data relating to currency sales/purchase volumes
      *
-     * The method acepts a TradeVolumeEvent represented in json as shown below:
+     * The method accepts a TradeVolumeEvent represented in json as shown below:
      *
      * var tradeVolumeEvent = {
      *   "event":"CURRENCIES_SOLD_VOLUME" / , "CURRENCIES_BOUGHT_VOLUME"
@@ -511,7 +559,7 @@ var UiUtils = new function() {
     /**
      * Updates the UI with the latest trade data relating to currency sales/purchase values
      *
-     * The method acepts a TradeValueEvent represented in json as shown below:
+     * The method accepts a TradeValueEvent represented in json as shown below:
      *
      * var tradeValueEvent = {
      *   "event":"CURRENCIES_SOLD_VALUE" / , "CURRENCIES_BOUGHT_VALUE"
@@ -565,14 +613,14 @@ var UiUtils = new function() {
     /**
      * Updates the UI with the latest country codes data
      *
-     * The method acepts a CountriesCodeEvent represented in json as shown below:
+     * The method accepts a CountriesCodeEvent represented in json as shown below:
      *
      * var countriesCodeEvent = {
      *   "event":"ORIGINATING_COUNTRIES",
      *   "data":[
-     *       {   "country":"AU"
-     *       },{ "country":"TR"
-     *       },{ "country":"ES"}
+	 *           "AU",
+     *           "TR"
+     *           "ES"
      *   ]
      * }
      *
@@ -585,12 +633,12 @@ var UiUtils = new function() {
      * @return {Unit}
      */
     this.updateCountriesInfo = function(data, updateProgress, repositionMap) {
-        // determine the number of countries form which a trade has ben placed
+        // determine the number of countries form which a trade has been placed
         var countires_size = data.length;
 
         // iterate the country codes to retrieve information for each country
         $.each(data, function (i, v) {
-            CountriesMap.getCountryInfoByCode(v.country);
+            CountriesMap.getCountryInfoByCode(v);
         });
 
         // establish a start time for when map data retrieval begins
