@@ -15,7 +15,13 @@ However fear not! As this in an open source project the good news is that you ca
 * dynamic graphing updates with http://www.flotcharts.org/[flotcharts]
 * google map dynamic marker creation and map bounds repositioning  
 
-== Build
+== Prerequisites
+
+In order to run `currencytrade-spray`, you will need to have access to a https://www.mongodb.org/[MongoDB] instance.
+
+By default, the application looks to connect to a database called `currencytrade`. The database name is configurable via the https://github.com/damianmcdonald/currencytrade-spray/blob/master/src/main/resources/application.conf[application.conf] file. The important thing to realise is that before running `currencytrade-spray` you will need to ensure that `MongoDB` is running, accessible and contains a database that matches the name referenced in `application.conf`.
+
+== Getting started
 
 `currencytrade-spray` is a Scala application built using http://www.scala-sbt.org/[sbt].
 
@@ -25,35 +31,55 @@ The application was built using the following toolchain:
 * http://www.scala-lang.org/download/all.html[Scala 2.11.6]
 * http://www.scala-sbt.org/download.html[SBT 0.13.8]
 
-The application has also been built against the OpenJDK but is less thoroughly tested so in general your mileage may vary if you attempt to use the application with versions different than the ones specified above.
+The application has also been built against the `OpenJDK 1.8` but is less thoroughly tested so in general your mileage may vary if you attempt to use the application with versions different than the ones specified above.
 
-Build the application with:
+1) Git-clone this repository.
 
- sbt compile
- 
-== Run
+----
+$ git clone git://github.com/damianmcdonald/currencytrade-spray.git my-project
+----
 
-In order to run `currencytrade-spray`, you will need to have access to a https://www.mongodb.org/[MongoDB] instance.
+2) Change directory into your clone:
 
-By default, the application looks to connect to a database called `currencytrade`. The database name is configurable via the https://github.com/damianmcdonald/currencytrade-spray/blob/master/src/main/resources/application.conf[application.conf] file. The important thing to realise is that before running `currencytrade-spray` you will need to ensure that `MongoDB` is running, accessible and contains a database that matches the name referenced in `application.conf`.
+----
+$ cd my-project
+----
+    
+3) Launch SBT:
 
-Run the application with:
+----
+$ sbt
+----
 
- sbt re-start
- 
-The running application can be accessed at http://localhost:8085
+4) Compile everything:
 
-As with the database settings, the port bindings for `currencytrade-spray` can be edited in https://github.com/damianmcdonald/currencytrade-spray/blob/master/src/main/resources/application.conf[application.conf].
+----
+> compile
+----
 
-Some additional sbt commands:
+5) Start the application:
 
- sbt re-start               // starts the application
- sbt re-stop                // stops the application
- sbt test                   // runs the unit and integration tests
- sbt scalastyle             // runs checkstyle to validate the Scala code
- sbt scalariformFormat      // formats the source code
- 
-Please note that the test suite contains both unit and integration tests. The test suite will not run successfully unless there is an accessible https://www.mongodb.org/[MongoDB] instance that contains at least 10 trade documents.
+----
+> re-start
+----
+
+6) Browse to http://localhost:8085
+
+7) Make some trades to populate the database and start seeing the dynamic updates in action.
+
+8) Stop the application:
+
+----
+> re-stop
+----
+
+`currencytrade-spray` also provides a test suite that contains both unit and integration tests. The test suite will not run successfully unless there is an accessible https://www.mongodb.org/[MongoDB] instance that contains at least 10 trade documents.
+
+The test suite can be executed via sbt:
+
+----
+$ sbt test
+----
 
 As an aside, it is possible to use an embedded instance of MongoDB during testing which removes the constraint of requiring an external MongoDB instance. See the following Gists; https://gist.github.com/damianmcdonald/2724facc813959ce1065[EmbeddedMongoDBImmutableTest] and https://gist.github.com/damianmcdonald/5fb23808314fec6b1589[EmbeddedMongoDBMutableTest].
 
