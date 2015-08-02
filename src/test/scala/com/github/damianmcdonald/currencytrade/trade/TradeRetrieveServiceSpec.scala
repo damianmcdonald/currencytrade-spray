@@ -16,7 +16,7 @@
 
 package com.github.damianmcdonald.currencytrade.trade
 
-import com.github.damianmcdonald.currencytrade.CurrencyTradeBase
+import com.github.damianmcdonald.currencytrade.{ Configuration, CurrencyTradeBase }
 import com.github.damianmcdonald.currencytrade.api.{ CurrencyTradeApi, MainActors }
 import org.specs2.mutable
 import spray.http.StatusCodes
@@ -24,94 +24,98 @@ import spray.testkit.Specs2RouteTest
 
 class TradeRetrieveServiceSpec extends mutable.Specification with Specs2RouteTest with MainActors with CurrencyTradeApi with CurrencyTradeBase {
 
-  def actorRefFactory = system
+  if (Configuration.runIntTests) {
 
-  "CurrencyTrade API" should {
-    "return a json object for a GET request to path /v1/countriesvolume" in {
-      Get("/v1/countriesvolume") ~> routes ~> check {
-        status === StatusCodes.OK
-        !responseAs[String].isEmpty
-        responseDataMatches(responseAs[String])
-        responseEventMatches(responseAs[String], "COUNTRIES_VOLUME")
+    def actorRefFactory = system
+
+    "CurrencyTrade API" should {
+      "return a json object for a GET request to path /v1/countriesvolume" in {
+        Get("/v1/countriesvolume") ~> routes ~> check {
+          status === StatusCodes.OK
+          !responseAs[String].isEmpty
+          responseDataMatches(responseAs[String])
+          responseEventMatches(responseAs[String], "COUNTRIES_VOLUME")
+        }
       }
     }
-  }
 
-  "CurrencyTrade API" should {
-    "return a json object for a GET request to path /v1/currencypair" in {
-      Get("/v1/currencypair") ~> routes ~> check {
-        status === StatusCodes.OK
-        !responseAs[String].isEmpty
-        responseDataMatches(responseAs[String])
-        responseEventMatches(responseAs[String], "CURRENCY_PAIRS")
+    "CurrencyTrade API" should {
+      "return a json object for a GET request to path /v1/currencypair" in {
+        Get("/v1/currencypair") ~> routes ~> check {
+          status === StatusCodes.OK
+          !responseAs[String].isEmpty
+          responseDataMatches(responseAs[String])
+          responseEventMatches(responseAs[String], "CURRENCY_PAIRS")
+        }
       }
     }
-  }
 
-  "CurrencyTrade API" should {
-    "return a json object for a GET request to path /v1/countrycodes" in {
-      Get("/v1/countrycodes") ~> routes ~> check {
-        status === StatusCodes.OK
-        !responseAs[String].isEmpty
-        responseDataMatches(responseAs[String])
-        responseEventMatches(responseAs[String], "ORIGINATING_COUNTRIES")
+    "CurrencyTrade API" should {
+      "return a json object for a GET request to path /v1/countrycodes" in {
+        Get("/v1/countrycodes") ~> routes ~> check {
+          status === StatusCodes.OK
+          !responseAs[String].isEmpty
+          responseDataMatches(responseAs[String])
+          responseEventMatches(responseAs[String], "ORIGINATING_COUNTRIES")
+        }
       }
     }
-  }
 
-  "CurrencyTrade API" should {
-    "return a json object for a GET request to path /v1/latest" in {
-      Get("/v1/latest") ~> routes ~> check {
-        status === StatusCodes.OK
-        !responseAs[String].isEmpty
-        responseDataMatches(responseAs[String])
-        responseEventMatches(responseAs[String], "LATEST_TRADES")
+    "CurrencyTrade API" should {
+      "return a json object for a GET request to path /v1/latest" in {
+        Get("/v1/latest") ~> routes ~> check {
+          status === StatusCodes.OK
+          !responseAs[String].isEmpty
+          responseDataMatches(responseAs[String])
+          responseEventMatches(responseAs[String], "LATEST_TRADES")
+        }
       }
     }
-  }
 
-  "CurrencyTrade API" should {
-    "return a json object for a GET request to path /v1/sellvolume" in {
-      Get("/v1/sellvolume") ~> routes ~> check {
-        status === StatusCodes.OK
-        !responseAs[String].isEmpty
-        responseDataMatches(responseAs[String])
-        responseEventMatches(responseAs[String], "CURRENCIES_SOLD_VOLUME")
+    "CurrencyTrade API" should {
+      "return a json object for a GET request to path /v1/sellvolume" in {
+        Get("/v1/sellvolume") ~> routes ~> check {
+          status === StatusCodes.OK
+          !responseAs[String].isEmpty
+          responseDataMatches(responseAs[String])
+          responseEventMatches(responseAs[String], "CURRENCIES_SOLD_VOLUME")
+        }
       }
     }
-  }
 
-  "CurrencyTrade API" should {
-    "return a json object for a GET request to path /v1/sellvalue" in {
-      Get("/v1/sellvalue") ~> routes ~> check {
-        status === StatusCodes.OK
-        !responseAs[String].isEmpty
-        responseDataMatches(responseAs[String])
-        responseEventMatches(responseAs[String], "CURRENCIES_SOLD_VALUE")
+    "CurrencyTrade API" should {
+      "return a json object for a GET request to path /v1/sellvalue" in {
+        Get("/v1/sellvalue") ~> routes ~> check {
+          status === StatusCodes.OK
+          !responseAs[String].isEmpty
+          responseDataMatches(responseAs[String])
+          responseEventMatches(responseAs[String], "CURRENCIES_SOLD_VALUE")
+        }
       }
     }
-  }
 
-  "CurrencyTrade API" should {
-    "return a json object for a GET request to path /v1/buyvolume" in {
-      Get("/v1/buyvolume") ~> routes ~> check {
-        status === StatusCodes.OK
-        !responseAs[String].isEmpty
-        responseDataMatches(responseAs[String])
-        responseEventMatches(responseAs[String], "CURRENCIES_BOUGHT_VOLUME")
+    "CurrencyTrade API" should {
+      "return a json object for a GET request to path /v1/buyvolume" in {
+        Get("/v1/buyvolume") ~> routes ~> check {
+          status === StatusCodes.OK
+          !responseAs[String].isEmpty
+          responseDataMatches(responseAs[String])
+          responseEventMatches(responseAs[String], "CURRENCIES_BOUGHT_VOLUME")
+        }
       }
     }
-  }
 
-  "CurrencyTrade API" should {
-    "return a json object for a GET request to path /v1/buyvalue" in {
-      Get("/v1/buyvalue") ~> routes ~> check {
-        status === StatusCodes.OK
-        !responseAs[String].isEmpty
-        responseDataMatches(responseAs[String])
-        responseEventMatches(responseAs[String], "CURRENCIES_BOUGHT_VALUE")
+    "CurrencyTrade API" should {
+      "return a json object for a GET request to path /v1/buyvalue" in {
+        Get("/v1/buyvalue") ~> routes ~> check {
+          status === StatusCodes.OK
+          !responseAs[String].isEmpty
+          responseDataMatches(responseAs[String])
+          responseEventMatches(responseAs[String], "CURRENCIES_BOUGHT_VALUE")
+        }
       }
     }
+
   }
 
 }

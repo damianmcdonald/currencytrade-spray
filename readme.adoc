@@ -1,5 +1,7 @@
 = Currencytrade-Spray
 
+image:https://travis-ci.org/damianmcdonald/currencytrade-spray.svg?branch=master["Build Status", link="https://travis-ci.org/damianmcdonald/currencytrade-spray"] image:https://go-shields.herokuapp.com/license-apache2-blue.png[License Apache2]
+
 Currencytrade-Spray is a demo application that displays the use of various technologies, specifically http://www.scala-lang.org/[Scala], http://spray.io[spray.io] with https://github.com/wandoulabs/spray-websocket[websockets] and https://www.mongodb.org/[mongodb], in order to expose web services and provide real-time data updates to clients.
 
 You can a view a https://currencytrade-spray.herokuapp.com[demo] of the application over at Heroku but ... (there is always a but!), due to limitations on the Heroku platform, `currencytrade-spray` is only offered in long polling fallback mode which results in a degraded user experience. The reason for this is that `currencytrade-spray` requires two port bindings; one to handle regular http traffic and the other to handle web socket traffic. Heroku's free pricing plan only allows an application to bind to a single port and as such web sockets are not active on the Heroku deployment. 

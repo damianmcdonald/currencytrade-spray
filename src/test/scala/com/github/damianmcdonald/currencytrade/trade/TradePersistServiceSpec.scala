@@ -16,7 +16,7 @@
 
 package com.github.damianmcdonald.currencytrade.trade
 
-import com.github.damianmcdonald.currencytrade.CurrencyTradeBase
+import com.github.damianmcdonald.currencytrade.{ Configuration, CurrencyTradeBase }
 import com.github.damianmcdonald.currencytrade.api.{ CurrencyTradeApi, MainActors }
 import org.specs2.mutable
 import spray.http.{ HttpEntity, MediaTypes, StatusCodes }
@@ -24,40 +24,44 @@ import spray.testkit.Specs2RouteTest
 
 class TradePersistServiceSpec extends mutable.Specification with Specs2RouteTest with MainActors with CurrencyTradeApi with CurrencyTradeBase {
 
-  def actorRefFactory = system
+  if (Configuration.runIntTests) {
 
-  "CurrencyTrade API" should {
-    "return an object id for a POST request to path /v1/trade" in {
-      Post("/v1/trade").withEntity(HttpEntity(MediaTypes.`application/json`, tradeAsString)) ~> routes ~> check {
-        status === StatusCodes.OK
-        !responseAs[String].isEmpty
-        responseIsObjectId(responseAs[String])
+    def actorRefFactory = system
+
+    "CurrencyTrade API" should {
+      "return an object id for a POST request to path /v1/trade" in {
+        Post("/v1/trade").withEntity(HttpEntity(MediaTypes.`application/json`, tradeAsString)) ~> routes ~> check {
+          status === StatusCodes.OK
+          !responseAs[String].isEmpty
+          responseIsObjectId(responseAs[String])
+        }
       }
     }
-  }
 
-  "CurrencyTrade API" should {
-    "return a 404 Not Found error for a POST request to path /v1/trade that contains a malformed trade" in {
-      Post("/v1/trade").withEntity(HttpEntity(MediaTypes.`application/json`, tradeAsStringMalformed)) ~> routes ~> check {
-        status === StatusCodes.NotFound
+    "CurrencyTrade API" should {
+      "return a 404 Not Found error for a POST request to path /v1/trade that contains a malformed trade" in {
+        Post("/v1/trade").withEntity(HttpEntity(MediaTypes.`application/json`, tradeAsStringMalformed)) ~> routes ~> check {
+          status === StatusCodes.NotFound
+        }
       }
     }
-  }
 
-  "CurrencyTrade API" should {
-    "return a 404 Not Found error for a POST request to path /v1/trade that does not contain a proper content type" in {
-      Post("/v1/trade").withEntity(HttpEntity(tradeAsString)) ~> routes ~> check {
-        status === StatusCodes.NotFound
+    "CurrencyTrade API" should {
+      "return a 404 Not Found error for a POST request to path /v1/trade that does not contain a proper content type" in {
+        Post("/v1/trade").withEntity(HttpEntity(tradeAsString)) ~> routes ~> check {
+          status === StatusCodes.NotFound
+        }
       }
     }
-  }
 
-  "CurrencyTrade API" should {
-    "return a 404 Not Found error for a GET request to path /v1/trade" in {
-      Get("/v1/trade").withEntity(HttpEntity(MediaTypes.`application/json`, tradeAsString)) ~> routes ~> check {
-        status === StatusCodes.NotFound
+    "CurrencyTrade API" should {
+      "return a 404 Not Found error for a GET request to path /v1/trade" in {
+        Get("/v1/trade").withEntity(HttpEntity(MediaTypes.`application/json`, tradeAsString)) ~> routes ~> check {
+          status === StatusCodes.NotFound
+        }
       }
     }
+
   }
 
 }

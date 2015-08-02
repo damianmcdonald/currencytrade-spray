@@ -125,6 +125,12 @@ object Configuration {
   lazy val dbCollection = config.getString("mongodb.collection")
 
   /**
+   * Indicates if integration tests should be executed.
+   * Obtained using the tests.run-int-tests from application.conf.
+   */
+  lazy val runIntTests = config.getBoolean("tests.run-int-tests")
+
+  /**
    * The [[org.joda.time.format.DateTimeFormat]] pattern that standardizes the date
    * representations used throughout the application. Obtained using the mongodb.collection
    * from application.conf.

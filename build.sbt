@@ -64,11 +64,11 @@ libraryDependencies ++= {
     "net.liftweb"                 %     "lift-json_2.11"        % "2.6.2",
 
     /* Testing */
-    "com.typesafe.akka"           %%  "akka-testkit"            % akkaV    % "test"     withSources() withJavadoc,
-    "io.spray"                    %%  "spray-testkit"           % sprayV   % "test"     withSources() withJavadoc,
-    "org.scalatest"               %%  "scalatest"               % "2.2.4"  % "test",
-    "junit"                       %   "junit"                   % "4.12"   % "test",
-    "org.specs2"                  %%  "specs2"                  % "2.4.17" % "test"      // until spray-testkit gets compiled against specs 3.3
+    "com.typesafe.akka"           %%  "akka-testkit"            % akkaV     % "test"     withSources() withJavadoc,
+    "io.spray"                    %%  "spray-testkit"           % sprayV    % "test"     withSources() withJavadoc,
+    "org.scalatest"               %%  "scalatest"               % "2.2.4"   % "test",
+    "junit"                       %   "junit"                   % "4.12"    % "test",
+    "org.specs2"                  %%  "specs2"                  % "2.4.17"  % "test"      // until spray-testkit gets compiled against specs 3.3
   )
 }
 
