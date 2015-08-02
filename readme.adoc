@@ -1,6 +1,6 @@
 = Currencytrade-Spray
 
-image:https://travis-ci.org/damianmcdonald/currencytrade-spray.svg?branch=master["Build Status", link="https://travis-ci.org/damianmcdonald/currencytrade-spray"] image:https://go-shields.herokuapp.com/license-apache2-blue.png[License Apache2]
+image:https://travis-ci.org/damianmcdonald/currencytrade-spray.svg?branch=master["Build Status", link="https://travis-ci.org/damianmcdonald/currencytrade-spray"] image:https://go-shields.herokuapp.com/license-apache2-blue.png["License Apache2", link="http://www.apache.org/licenses/LICENSE-2.0"]
 
 Currencytrade-Spray is a demo application that displays the use of various technologies, specifically http://www.scala-lang.org/[Scala], http://spray.io[spray.io] with https://github.com/wandoulabs/spray-websocket[websockets] and https://www.mongodb.org/[mongodb], in order to expose web services and provide real-time data updates to clients.
 
